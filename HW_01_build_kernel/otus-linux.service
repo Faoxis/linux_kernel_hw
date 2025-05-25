@@ -1,0 +1,22 @@
+[Unit]
+Description=Debian 12 Cloud VM
+After=network.target
+
+
+ExecStart=qemu-system-x86_64 \
+  -enable-kvm \
+  -name debian-cloud-vm \
+  -m 12096 \
+  -smp 8 \
+  -cpu host \
+  -drive file=/home/faoxis/Projects/linux-c-course/debian-12-generic-amd64.qcow2,if=virtio,format=qcow2 \
+  -drive file=/home/faoxis/Projects/linux-c-course/cloud-init.iso,media=cdrom \
+  -netdev user,id=net0,hostfwd=tcp::2222-:22 \
+  -device virtio-net-pci,netdev=net0 \
+  -nographic
+
+Restart=on-failure
+User=faoxis
+
+[Install]
+WantedBy=multi-user.target
