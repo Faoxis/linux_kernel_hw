@@ -16,7 +16,8 @@ module_param_string(my_str, my_str, sizeof(my_str), 0444);
 static char ch_val = 'H';
 static int idx = 0;
 
-static int idx_set(const char *val, const struct kernel_param *kp) {
+static int idx_set(const char *val, const struct kernel_param *kp) 
+{
     int new_idx;
     
     int err = kstrtoint(val, 10, &new_idx);
@@ -44,7 +45,8 @@ static const struct kernel_param_ops idx_ops = {
 };
 module_param_cb(idx, &idx_ops, &idx, 0644);
 
-static int ch_val_set(const char *val, const struct kernel_param *kp) {
+static int ch_val_set(const char *val, const struct kernel_param *kp) 
+{
 
     if (!val || strlen(val) == 0) {
         pr_err("Empty character value\n");
@@ -58,9 +60,14 @@ static int ch_val_set(const char *val, const struct kernel_param *kp) {
     return 0;
 }
 
+static int ch_get(char *buffer, const struct kernel_param *kp) 
+{
+    return scnprintf(buffer, PAGE_SIZE, "%c", ch_val);
+}
+
 static const struct kernel_param_ops ch_val_ops = {
     .set = ch_val_set,
-    .get = param_get_charp
+    .get = ch_get
 };
 module_param_cb(ch_val, &ch_val_ops, &ch_val, 0644);
 
