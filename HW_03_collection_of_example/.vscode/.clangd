@@ -1,0 +1,55 @@
+CompileFlags:
+  Add: 
+    - -D__KERNEL__
+    - -DMODULE
+    - -D__linux__
+    - -D__x86_64__
+    - -DCONFIG_X86_64
+    - -Wno-unknown-warning-option
+    - -Wno-unused-command-line-argument
+  Remove:
+    # GCC-specific flags that clang doesn't understand
+    - -mpreferred-stack-boundary=*
+    - -fno-allow-store-data-races
+    - -fconserve-stack
+    - -mrecord-mcount
+    - -mfentry
+    - -pg
+    - -fasan-shadow-offset=*
+    # Remove other problematic GCC flags
+    - -mindirect-branch=*
+    - -mindirect-branch-register
+    - -mno-fp-ret-in-387
+    - -mskip-rax-setup
+    - -fno-var-tracking-assignments
+    - -fmerge-constants
+    - -fno-merge-all-constants
+    - -DCC_USING_FENTRY
+    - -Wframe-larger-than=*
+    - -Wno-format-truncation
+    - -Wno-format-overflow
+    - -Wno-stringop-truncation
+    - -Wno-stringop-overflow
+    - -Wno-zero-length-bounds
+    - -Wno-maybe-uninitialized
+
+Index:
+  Background: Build
+  
+Diagnostics:
+  Suppress:
+    - unused-parameter
+    - missing-prototypes
+    - strict-prototypes
+    - unknown-warning-option
+    - unused-command-line-argument
+  ClangTidy:
+    Add: 
+      - readability-*
+      - bugprone-*
+    Remove:
+      - readability-magic-numbers
+      - bugprone-easily-swappable-parameters
+
+Hover:
+  ShowAKA: Yes

@@ -1,0 +1,24 @@
+
+{
+    "files.associations": {
+        "*.h": "c",
+        "*.c": "c"
+    },
+    "C_Cpp.intelliSenseEngine": "Disabled",
+    "C_Cpp.autocomplete": "Disabled",
+    "C_Cpp.errorSquiggles": "Disabled",
+    "C_Cpp.configurationWarnings": "Disabled",
+    "clangd.arguments": [
+        "--compile-commands-dir=${workspaceFolder}",
+        "--background-index",
+        "--clang-tidy",
+        "--completion-style=detailed",
+        "--function-arg-placeholders",
+        "--header-insertion=never",
+        "--cross-file-rename"
+    ],
+    "clangd.detectExtensionConflicts": false,
+    "files.exclude": {
+        "**/build/**": false
+    }
+}

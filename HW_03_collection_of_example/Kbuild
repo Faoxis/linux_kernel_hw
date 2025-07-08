@@ -1,0 +1,5 @@
+obj-m += ex_list.o
+obj-m += ex_queue.o 
+obj-m += ex_bitmap.o
+obj-m += ex_rb_tree.o 
+obj-m += ex_bin_search.o
