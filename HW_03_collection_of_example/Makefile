@@ -9,7 +9,7 @@ KERNEL_DIR := /lib/modules/$(shell uname -r)/build
 MODULES := ex_list ex_queue ex_bitmap ex_rb_tree ex_bin_search
 
 # Цели по умолчанию
-.PHONY: all clean format check help
+.PHONY: all clean format 
 
 # Основная цель - сборка всех модулей
 all: $(BUILD_DIR) $(addprefix $(BUILD_DIR)/, $(addsuffix .ko, $(MODULES)))
@@ -31,6 +31,14 @@ clean:
 	@echo "Очистка директории $(BUILD_DIR)..."
 	@rm -rf $(BUILD_DIR)
 	@echo "Очистка завершена"
+
+# Тестирование
+check:
+	@sudo python3 tests/test_list.py
+	@sudo python3 tests/test_queue.py
+	@sudo python3 tests/test_bitmap.py
+	@sudo python3 tests/test_rb_tree.py
+	@sudo python3 tests/test_bin_search.py
 
 # Загрузка модулей
 load: all
@@ -57,3 +65,10 @@ unload:
 		fi; \
 	done
 	@echo "Выгрузка завершена"
+
+# Автоформатирование исходников
+format:
+	@echo "Форматирование исходников в $(SRC_DIR)..."
+	@find $(SRC_DIR) -name "*.c" -exec clang-format -i {} \;
+	@echo "Форматирование завершено"
+
